@@ -72,7 +72,7 @@
 
     // Registro del Service Worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
+        navigator.serviceWorker.register('service-worker.js', { scope: '/test-mi-pwa/' })
             .then(() => {
                 agregarEstado('✅ Service Worker registrado correctamente');
             })
