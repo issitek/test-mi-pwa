@@ -1,7 +1,8 @@
 {
   "name": "Mi PWA de Prueba",
   "short_name": "PWA Prueba",
-  "start_url": "./index.html",
+  "start_url": "/test-mi-pwa/",
+  "scope": "/test-mi-pwa/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2196f3",
