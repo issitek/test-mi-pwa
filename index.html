@@ -79,6 +79,14 @@
             .catch(err => {
                 mostrarError('Error al registrar el Service Worker: ' + err.message);
             });
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+          console.log('📥 beforeinstallprompt fired', e);
+          agregarEstado('✅ Service Worker revisar aqui que pasa');
+          e.preventDefault();
+          deferredPrompt = e;
+          document.getElementById('btnInstalar').style.display = 'inline-block';
+       });
     } else {
         mostrarError('Este navegador no soporta Service Workers');
     }
