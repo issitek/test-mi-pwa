@@ -103,6 +103,7 @@ window.addEventListener("online", updateConnectionStatus);
 window.addEventListener("offline", updateConnectionStatus);
 
 // =================== Registro de Service Worker ===================
+console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 0000000000000000")
 if ('serviceWorker' in navigator) {
   console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 11111111111")
   window.addEventListener('load', () => {
