@@ -101,3 +101,16 @@ window.addEventListener("load", updateConnectionStatus);
 // Escuchar cambios de red
 window.addEventListener("online", updateConnectionStatus);
 window.addEventListener("offline", updateConnectionStatus);
+
+// =================== Registro de Service Worker ===================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+      .then(reg => {
+        console.log('[SW] ✅ Registrado con éxito:', reg.scope);
+      })
+      .catch(err => {
+        console.error('[SW] ❌ Error al registrar:', err);
+      });
+  });
+}
