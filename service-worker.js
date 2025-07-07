@@ -1,13 +1,13 @@
 const CACHE_NAME = "pwa-tareas-v1";
 const FILES_TO_CACHE = [
-  "/test-mi-pwa/",
-  "/test-mi-pwa/index.html",
-  "/test-mi-pwa/app.js",
-  "/test-mi-pwa/manifest.json",
-  "/test-mi-pwa/icon.png"
+  "./",
+  "./index.html",
+  "./app.js",
+  "./manifest.json",
+  "./icon.png"
 ];
 
-// Instala y cachea archivos
+// Instalación — cacheando archivos
 self.addEventListener("install", (event) => {
   console.log("[SW] Evento: install");
   event.waitUntil(
@@ -15,53 +15,51 @@ self.addEventListener("install", (event) => {
       console.log("[SW] Abriendo caché:", CACHE_NAME);
       console.log("[SW] Archivos a cachear:", FILES_TO_CACHE);
       return cache.addAll(FILES_TO_CACHE)
-        .then(() => console.log("[SW] Archivos cacheados correctamente"))
-        .catch((err) => console.error("[SW] Error al cachear archivos:", err));
+        .then(() => console.log("[SW] Archivos cacheados OK"))
+        .catch((err) => console.error("[SW] Error al cachear:", err));
     })
   );
   self.skipWaiting();
 });
 
-// Activa y limpia caches viejos
+// Activación — limpiando caché vieja
 self.addEventListener("activate", (event) => {
   console.log("[SW] Evento: activate");
   event.waitUntil(
-    caches.keys().then((keyList) => {
-      console.log("[SW] Caches encontrados:", keyList);
-      return Promise.all(
-        keyList.map((key) => {
-          if (key !== CACHE_NAME) {
-            console.log("[SW] Borrando caché antigua:", key);
-            return caches.delete(key);
-          }
-        })
-      );
+    caches.keys().then((keys) => {
+      console.log("[SW] Cachés disponibles:", keys);
+      return Promise.all(keys.map((key) => {
+        if (key !== CACHE_NAME) {
+          console.log("[SW] Borrando caché antigua:", key);
+          return caches.delete(key);
+        }
+      }));
     })
   );
   self.clients.claim();
 });
 
-// Intercepta peticiones y responde desde caché si está offline
+// Fetch — responde desde red o caché
 self.addEventListener("fetch", (event) => {
   console.log("[SW] Fetch interceptado:", event.request.url);
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        console.log("[SW] Red disponible, recurso obtenido:", event.request.url);
+        console.log("[SW] Red OK:", event.request.url);
         return response;
       })
       .catch((err) => {
-        console.warn("[SW] Sin conexión. Buscando en caché:", event.request.url);
+        console.warn("[SW] Red FAIL, buscando caché:", event.request.url);
         return caches.match(event.request)
-          .then((cachedResponse) => {
-            if (cachedResponse) {
-              console.log("[SW] Recurso encontrado en caché:", event.request.url);
-              return cachedResponse;
+          .then((cached) => {
+            if (cached) {
+              console.log("[SW] Recurso en caché:", event.request.url);
+              return cached;
             } else {
-              console.error("[SW] Recurso no encontrado en caché:", event.request.url);
-              return new Response("Recurso no disponible sin conexión", {
+              console.error("[SW] No encontrado en caché:", event.request.url);
+              return new Response("Offline y recurso no cacheado", {
                 status: 404,
-                statusText: "Offline and resource not cached"
+                statusText: "Offline & no cached"
               });
             }
           });
