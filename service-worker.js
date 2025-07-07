@@ -1,11 +1,11 @@
 
 const CACHE_NAME = "pwa-tareas-v1";
 const FILES_TO_CACHE = [
-  "/",
-  "/index.html",
-  "/app.js",
-  "/manifest.json",
-  "/icon.png"
+  "/test-mi-pwa/",
+  "/test-mi-pwa/index.html",
+  "/test-mi-pwa/app.js",
+  "/test-mi-pwa/manifest.json",
+  "/test-mi-pwa/icon.png"
 ];
 
 // Instala y cachea archivos
