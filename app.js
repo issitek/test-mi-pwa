@@ -104,7 +104,9 @@ window.addEventListener("offline", updateConnectionStatus);
 
 // =================== Registro de Service Worker ===================
 if ('serviceWorker' in navigator) {
+  console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 11111111111")
   window.addEventListener('load', () => {
+    console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 2222222222222222")
     navigator.serviceWorker.register('./service-worker.js', { scope: './' })
       .then(reg => {
         console.log('[SW] ✅ Registrado con éxito:', reg.scope);
