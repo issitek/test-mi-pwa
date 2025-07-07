@@ -1,7 +1,6 @@
 // =================== IndexedDB ===================
 let db;
 const request = indexedDB.open("taskDB", 1);
-console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 0.0.0.0.0.000")
 request.onupgradeneeded = function (event) {
   db = event.target.result;
   db.createObjectStore("tasks", { keyPath: "id", autoIncrement: true });
@@ -103,11 +102,8 @@ window.addEventListener("online", updateConnectionStatus);
 window.addEventListener("offline", updateConnectionStatus);
 
 // =================== Registro de Service Worker ===================
-console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 0000000000000000")
 if ('serviceWorker' in navigator) {
-  console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 11111111111")
   window.addEventListener('load', () => {
-    console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 2222222222222222")
     navigator.serviceWorker.register('./service-worker.js', { scope: './' })
       .then(reg => {
         console.log('[SW] ✅ Registrado con éxito:', reg.scope);
