@@ -1,7 +1,7 @@
 // =================== IndexedDB ===================
 let db;
 const request = indexedDB.open("taskDB", 1);
-
+console.log("aquiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 0.0.0.0.0.000")
 request.onupgradeneeded = function (event) {
   db = event.target.result;
   db.createObjectStore("tasks", { keyPath: "id", autoIncrement: true });
